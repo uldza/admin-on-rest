@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import ContentSave from 'material-ui/svg-icons/content/save';
 import CircularProgress from 'material-ui/CircularProgress';
+import LocalizedComponent from '../../i18n/LocalizedComponent';
 
 class SaveButton extends Component {
     constructor(props) {
@@ -26,24 +27,27 @@ class SaveButton extends Component {
     }
 
     render() {
-        const { label = 'Save' } = this.props;
-        return <RaisedButton
-            type="submit"
-            label={label}
-            icon={this.state.submitting ? <CircularProgress size={25} thickness={2} /> : <ContentSave />}
-            onClick={this.handleClick}
-            primary={!this.state.submitting}
-            style={{
-                margin: '10px 24px',
-                position: 'relative',
-            }}
-        />;
+        const { label = 'aor.action.save', translate } = this.props;
+        return (
+            <RaisedButton
+                type="submit"
+                label={translate(label)}
+                icon={this.state.submitting ? <CircularProgress size={25} thickness={2} /> : <ContentSave />}
+                onClick={this.handleClick}
+                primary={!this.state.submitting}
+                style={{
+                    margin: '10px 24px',
+                    position: 'relative',
+                }}
+            />
+        );
     }
 }
 
 SaveButton.propTypes = {
     invalid: PropTypes.bool,
     label: PropTypes.string,
+    translate: PropTypes.func.isRequired,
 };
 
-export default SaveButton;
+export default LocalizedComponent(SaveButton);

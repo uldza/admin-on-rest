@@ -5,23 +5,23 @@ import {
     CRUD_DELETE,
 } from '../../actions/dataActions';
 import { showNotification } from '../../actions/notificationActions';
-import linkToRecord from '../../util/linkToRecord'
+import linkToRecord from '../../util/linkToRecord';
 
 export default (type, resource, payload, response) => {
     switch (type) {
     case CRUD_UPDATE:
         return [
-            showNotification('Element updated'),
+            showNotification('aor.flashes.updated'),
             push(payload.basePath),
         ];
     case CRUD_CREATE:
         return [
-            showNotification('Element created'),
+            showNotification('aor.flashes.created'),
             push(linkToRecord(payload.basePath, response.id)),
         ];
     case CRUD_DELETE:
         return [
-            showNotification('Element deleted'),
+            showNotification('aor.flashes.deleted'),
             push(payload.basePath),
         ];
     default:
