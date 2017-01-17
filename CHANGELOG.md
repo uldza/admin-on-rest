@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.7.1
+* Introduce configurable i18n capabilities
+
 ## v0.7.0
 
 See the [v0.7.0 announcement in the marmelab blog](https://marmelab.com/blog/2017/01/13/admin-on-rest-0-7.html).

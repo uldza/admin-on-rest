@@ -11,8 +11,10 @@ import crudSaga from './sideEffect/saga';
 import CrudRoute from './CrudRoute';
 import Layout from './mui/layout/Layout';
 import withProps from './withProps';
+import I18nProvider from './i18n/I18nProvider';
+import { loadTranslations, DEFAULT_LOCALE } from './i18n/I18nLoader';
 
-const Admin = ({ restClient, dashboard, children, title = 'Admin on REST', theme, appLayout = withProps({ title, theme })(Layout) }) => {
+const Admin = ({ restClient, dashboard, children, title = 'Admin on REST', theme, locale = DEFAULT_LOCALE, messages = {}, appLayout = withProps({ title, theme })(Layout) }) => {
     const resources = React.Children.map(children, ({ props }) => props);
     const firstResource = resources[0].name;
     const sagaMiddleware = createSagaMiddleware();
@@ -29,18 +31,32 @@ const Admin = ({ restClient, dashboard, children, title = 'Admin on REST', theme
 
     const history = syncHistoryWithStore(hashHistory, store);
 
+    const customMessages = messages[locale] || messages[DEFAULT_LOCALE] || {};
+    const translations = { ...loadTranslations(locale), ...customMessages };
+
     return (
-        <Provider store={store}>
-            <Router history={history}>
-                {dashboard ? undefined : <Redirect from="/" to={`/${firstResource}`} />}
-                <Route path="/" component={appLayout} resources={resources}>
-                    {dashboard && <IndexRoute component={dashboard} restClient={restClient} />}
-                    {resources.map(resource =>
-                        <CrudRoute key={resource.name} path={resource.name} list={resource.list} create={resource.create} edit={resource.edit} show={resource.show} remove={resource.remove} options={resource.options} />
-                    )}
-                </Route>
-            </Router>
-        </Provider>
+        <I18nProvider locale={locale} messages={translations}>
+            <Provider store={store}>
+                <Router history={history}>
+                    {dashboard ? undefined : <Redirect from="/" to={`/${firstResource}`} />}
+                    <Route path="/" component={appLayout} resources={resources}>
+                        {dashboard && <IndexRoute component={dashboard} restClient={restClient} />}
+                        {resources.map(resource =>
+                            <CrudRoute
+                                key={resource.name}
+                                path={resource.name}
+                                list={resource.list}
+                                create={resource.create}
+                                edit={resource.edit}
+                                show={resource.show}
+                                remove={resource.remove}
+                                options={resource.options}
+                            />,
+                        )}
+                    </Route>
+                </Router>
+            </Provider>
+        </I18nProvider>
     );
 };
 
@@ -53,6 +69,8 @@ Admin.propTypes = {
     children: PropTypes.node,
     title: PropTypes.string,
     theme: PropTypes.object,
+    locale: PropTypes.string,
+    messages: PropTypes.object,
 };
 
 export default Admin;
