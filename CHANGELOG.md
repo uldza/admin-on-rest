@@ -1,6 +1,7 @@
 # Changelog
 
-## v0.7.1
+## Next
+
 * Introduce configurable i18n capabilities
 
 ## v0.7.0
