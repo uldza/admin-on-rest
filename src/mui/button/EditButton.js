@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import ContentCreate from 'material-ui/svg-icons/content/create';
 import linkToRecord from '../../util/linkToRecord';
-import LocalizedComponent from '../../i18n/LocalizedComponent';
+import Translate from '../../i18n/Translate';
 
 const EditButton = ({ basePath = '', label = 'aor.action.edit', record = {}, translate }) => <FlatButton
     primary
@@ -20,4 +20,4 @@ EditButton.propTypes = {
     translate: PropTypes.func.isRequired,
 };
 
-export default LocalizedComponent(EditButton);
+export default Translate(EditButton);

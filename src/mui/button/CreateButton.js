@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import LocalizedComponent from '../../i18n/LocalizedComponent';
+import Translate from '../../i18n/Translate';
 
 const CreateButton = ({ basePath = '', translate, label = 'aor.action.create' }) => <FlatButton
     primary
@@ -18,4 +18,4 @@ CreateButton.propTypes = {
     translate: PropTypes.func.isRequired,
 };
 
-export default LocalizedComponent(CreateButton);
+export default Translate(CreateButton);

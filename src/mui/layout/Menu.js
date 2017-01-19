@@ -3,7 +3,7 @@ import inflection from 'inflection';
 import Paper from 'material-ui/Paper';
 import { List, ListItem } from 'material-ui/List';
 import { Link } from 'react-router';
-import { LocalizedComponent } from 'admin-on-rest/i18n';
+import { Translate } from 'admin-on-rest/i18n';
 
 const Menu = ({ resources, translate }) => (
     <Paper style={{ flex: '0 0 15em', order: -1 }}>
@@ -28,4 +28,4 @@ Menu.propTypes = {
     translate: PropTypes.func.isRequired,
 };
 
-export default LocalizedComponent(Menu);
+export default Translate(Menu);

@@ -11,8 +11,8 @@ import crudSaga from './sideEffect/saga';
 import CrudRoute from './CrudRoute';
 import Layout from './mui/layout/Layout';
 import withProps from './withProps';
-import I18nProvider from './i18n/I18nProvider';
-import { loadTranslations, DEFAULT_LOCALE } from './i18n/I18nLoader';
+import TranslationProvider from './i18n/TranslationProvider';
+import { loadTranslations, DEFAULT_LOCALE } from './i18n/TranslationLoader';
 
 const Admin = ({ restClient, dashboard, children, title = 'Admin on REST', theme, locale = DEFAULT_LOCALE, messages = {}, appLayout = withProps({ title, theme })(Layout) }) => {
     const resources = React.Children.map(children, ({ props }) => props);
@@ -35,7 +35,7 @@ const Admin = ({ restClient, dashboard, children, title = 'Admin on REST', theme
     const translations = { ...loadTranslations(locale), ...customMessages };
 
     return (
-        <I18nProvider locale={locale} messages={translations}>
+        <TranslationProvider locale={locale} messages={translations}>
             <Provider store={store}>
                 <Router history={history}>
                     {dashboard ? undefined : <Redirect from="/" to={`/${firstResource}`} />}
@@ -56,7 +56,7 @@ const Admin = ({ restClient, dashboard, children, title = 'Admin on REST', theme
                     </Route>
                 </Router>
             </Provider>
-        </I18nProvider>
+        </TranslationProvider>
     );
 };
 
